@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import javax.swing.plaf.ColorUIResource;
-
 public class TeamModel {
 	private String teamName;
 	
@@ -38,7 +36,7 @@ public class TeamModel {
 		
 		PlayerModel flexPlayer = null;	
 		
-		String returnString = "\n              " + this.teamName + "         " + "\n---------------------------------------\n";
+		String returnString = "\n       " + this.teamName + "      " + "\n---------------------------------------\n";
 		
 		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
 

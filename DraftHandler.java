@@ -7,7 +7,7 @@ public class DraftHandler {
 	public DraftHandler(ArrayList<PlayerModel> startingPlayers) {
 		this.playersLeft = new ArrayList<PlayerModel>(startingPlayers);
 		this.randomNumGen = new VaribleOddsPicker();
-		TeamModel testTeam = new TeamModel("Uber Meyer's Lap Dance");
+		TeamModel testTeam = new TeamModel("Urban Meyer's Lap Dance");
 		while(this.playersLeft.size() > 0) {
 			int nextPick = this.randomNumGen.newOdds(this.playersLeft.size());
 			System.out.println(this.playersLeft.get(nextPick-1));

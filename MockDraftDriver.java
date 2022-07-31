@@ -35,6 +35,7 @@ public class MockDraftDriver {
 				
 				allPlayers.put(currPlayerStatsArray[0],otherPlayStats);
 			}
+			fileReader.close();
 		}
 		catch (FileNotFoundException error) {
 			System.out.println("File Not Found - Check File Name");
@@ -63,9 +64,8 @@ public class MockDraftDriver {
 		}
 		allPlayerModels.sort(null);
 		DraftHandler draftHandler = new DraftHandler(allPlayerModels);
+		draftHandler.toString();
 		System.out.println("Done");
-		
-		
 		System.out.println("---------Exiting----------");
 	}
 	
