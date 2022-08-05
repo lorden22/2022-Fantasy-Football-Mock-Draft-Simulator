@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class TeamModel {
+public class TeamModel implements Comparable<TeamModel>{
 	private String teamName;
-	
+	private boolean userTeam = false;
 	private TreeMap<String,ArrayList<PlayerModel>> thisTeamPlayers;
+	private int teamNumber;
 	
 	
 	
-	public TeamModel(String teamName){
+	public TeamModel(String teamName, boolean userTeam, int teamNumber){
 		this.teamName = teamName;
 		this.thisTeamPlayers = new TreeMap<String,ArrayList<PlayerModel>>();
+		this.userTeam = userTeam;
+		this.teamNumber = teamNumber;
 		
 		ArrayList<PlayerModel> quarterBackList = new ArrayList<PlayerModel>();
 		ArrayList<PlayerModel> runningBackList = new ArrayList<PlayerModel>();
@@ -22,14 +25,38 @@ public class TeamModel {
 		this.thisTeamPlayers.put(TightEndPlayerModel.POSITIONSHORTHANDLE, tightEndList);
 		this.thisTeamPlayers.put(WideReceiverPlayerModel.POSITIONSHORTHANDLE, wideReceiverList);
 	}
-	
+
 	public void addPlayer(String playerClassString, PlayerModel playerToAdd) {
 		this.thisTeamPlayers.get(playerClassString).add(playerToAdd);
 		this.thisTeamPlayers.get(playerClassString).sort(null);
 	}
-	
-	
-	/** Working on sorting Starters from bench8*/
+
+	public String getTeamName() {
+		return this.teamName;
+	}
+
+	public int getTeamSize() {
+		return this.thisTeamPlayers.size();
+	}
+
+	private int getTeamNumber() {
+		return this.teamNumber;
+	}
+
+	public boolean isUserTeam() {
+		return this.userTeam;
+	}
+
+	public int compareTo(TeamModel otherTeam) {
+		if (this.getTeamNumber() > otherTeam.getTeamNumber()) {
+			return 1;
+		}
+		else if (this.getTeamNumber() < otherTeam.getTeamNumber()) {
+			return -1;
+		}
+		else return 0;
+	}
+
 	public String toString() {
 		TreeMap<String,ArrayList<PlayerModel>> copyOfThisTeamPlayers = 
 			new TreeMap<String,ArrayList<PlayerModel>>(this.thisTeamPlayers);
@@ -77,7 +104,7 @@ public class TeamModel {
 			}				
 		}
 
-		returnString += "Flex - " + flexPlayer + "\n\n";
+		returnString += "Flex - " + flexPlayer + "\n";
 
 		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
 			for(PlayerModel nextPositionBenchPlayer : copyOfThisTeamPlayers.get(currPosition)) {

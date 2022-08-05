@@ -24,7 +24,7 @@ public class MockDraftDriver {
 				String[] currPlayerStatsArray = currPlayerStatsString.split(" ");
 				ArrayList<Object> otherPlayStats = new ArrayList<Object>(0);
 				
-				for(String nextVal : Arrays.copyOfRange(currPlayerStatsArray, 1, currPlayerStatsArray.length)) {
+				for(String nextVal : Arrays.copyOfRange(currPlayerStatsArray, 2, currPlayerStatsArray.length)) {
 					try {
 						otherPlayStats.add(Double.parseDouble(nextVal));
 					}
@@ -33,7 +33,7 @@ public class MockDraftDriver {
 					}
 				}
 				
-				allPlayers.put(currPlayerStatsArray[0],otherPlayStats);
+				allPlayers.put(currPlayerStatsArray[0] + " " + currPlayerStatsArray[1], otherPlayStats);
 			}
 			fileReader.close();
 		}
@@ -54,18 +54,37 @@ public class MockDraftDriver {
 			String nextPlayerPos = nextPlayerStats.get(0).toString();
 			
 			if(nextPlayerPos.equals("RB")) {
-				allPlayerModels.add(new RunningBackPlayerModel(nextPlayer, "", Double.valueOf(nextPlayerStats.get(1).toString()), 
+				allPlayerModels.add(new RunningBackPlayerModel(nextPlayer.substring(0, 
+				nextPlayer.indexOf(" ")),nextPlayer.substring(nextPlayer.indexOf(" ")+1) ,Double.valueOf(nextPlayerStats.get(1).toString()), 
 																	Double.valueOf(nextPlayerStats.get(2).toString())));
 			}
 			else if(nextPlayerPos.equals("WR")) {
-				allPlayerModels.add(new WideReceiverPlayerModel(nextPlayer, "", Double.valueOf(nextPlayerStats.get(1).toString()), 
+				allPlayerModels.add(new WideReceiverPlayerModel(nextPlayer.substring(0, 
+				nextPlayer.indexOf(" ")),nextPlayer.substring(nextPlayer.indexOf(" ")+1), Double.valueOf(nextPlayerStats.get(1).toString()), 
 						Double.valueOf(nextPlayerStats.get(2).toString())));
 			}	
 		}
 		allPlayerModels.sort(null);
-		DraftHandler draftHandler = new DraftHandler(allPlayerModels);
-		draftHandler.toString();
-		System.out.println("Done");
+		System.out.println("Done\n--------Creating Draft Now-------------------");
+
+		Scanner readScanner = new Scanner(System.in);
+		System.out.println("How many teams do you want to draft with?");
+		int desiredNumTeams = Integer.parseInt(readScanner.nextLine());
+
+		System.out.println("Enter your team name?");
+		String desiredTeamName = readScanner.nextLine();
+
+		System.out.println("Enter 'R'/'r' or number between 1-"+desiredNumTeams+ " to chose a wanted draft postion");
+		String stringDesiredDraftPick = readScanner.nextLine();
+	
+		DraftHandler draftHandler = new DraftHandler(allPlayerModels,desiredNumTeams,desiredTeamName,stringDesiredDraftPick);
+		System.out.println("Done\n----------Staring Draft Now----------------------");
+		draftHandler.startDraft();
+
+		System.out.println("\nDraft is finsh...\n-----------Printing Final Teams----------");
+		draftHandler.printTeams();	
+
+		System.out.println("\nDone");
 		System.out.println("---------Exiting----------");
 	}
 	

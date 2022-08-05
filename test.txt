@@ -1,6 +1,24 @@
-JT RB 310 1.1
-CMC RB 300 1.2
-AK RB 288 1.3 
-CK WR 280 1.4
-DH RB 265 1.5
-JF WR 275 1.6
+Jonthan Taylor RB 310 1.01
+Christian McCaffrey RB 300 1.02
+Austin Ekeler RB 288 1.03
+Cooper Kupp WR 280 1.04
+Derrick Henry RB 265 1.05
+Justin Jefferson WR 275 1.06
+Najee Harris RB 000 1.07
+Davin Cook RB 000 1.08
+Ja'Marr Chase WR 000 1.09
+Joe Mixon RB 000 1.10
+Davante Adams WR 000 1.11
+Stefon Diggs WR 000 1.12
+Travis Kelce TE 000 2.01
+D'Andre Swift RB 000 2.02
+Deebo Samuel WR 000 2.03
+Nick Chubb RB 000 2.04
+CeeDee Lamb WR 000 2.05
+Alivn Kamara 000 2.06
+Aaron Jones  RB 000 2.07
+Tyreek Hill WR 000 2.08
+Javonte Williams RB 000 2.09
+Mark Andrews TE 000 2.10
+Josh Allen QB 000 2.11
+Leonard Fournette 2.12
