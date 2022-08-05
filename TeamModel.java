@@ -103,8 +103,13 @@ public class TeamModel implements Comparable<TeamModel>{
 				} 
 			}				
 		}
-
-		returnString += "Flex - " + flexPlayer + "\n";
+		if (flexPlayer == null) {
+			returnString += "Flex - None \n";
+		}
+		else {	
+			returnString += "Flex - " + flexPlayer + "\n";
+			copyOfThisTeamPlayers.get(flexPlayer.getPosition()).remove(flexPlayer);
+		}
 
 		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
 			for(PlayerModel nextPositionBenchPlayer : copyOfThisTeamPlayers.get(currPosition)) {

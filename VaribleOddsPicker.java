@@ -10,19 +10,19 @@ public class VaribleOddsPicker {
 	public int newOdds(int sizeOfListOfPontenialPicks) {
 		this.maxPickPossible = sizeOfListOfPontenialPicks;
 		double random = Math.random();
-		if(random <= 0.4) {
+		if(random <= 0.6) {
 			this.randomGenValue = 1;
 		}
-		else if (random <= 0.6) {
+		else if (random <= 0.8) {
 			this.randomGenValue = 2;
 		}
-		else if (random <= 0.80) {
+		else if (random <= 0.875) {
 			this.randomGenValue = 3;
 		}
-		else if (random <= 0.90) {
+		else if (random <= 0.925) {
 			this.randomGenValue = 4;
 		}
-		else if(random <= 0.95) {
+		else if(random <= 0.975) {
 			this.randomGenValue = 5;
 		}
 		else this.randomGenValue = 6;
