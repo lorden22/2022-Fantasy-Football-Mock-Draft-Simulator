@@ -21,4 +21,4 @@ Tyreek Hill WR 000 20
 Javonte Williams RB 000 21
 Mark Andrews TE 000 22
 Josh Allen QB 000 23
-Leonard Fournette RB 24
+Leonard Fournette RB 000 24
