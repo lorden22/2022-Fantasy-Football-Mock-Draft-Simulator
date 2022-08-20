@@ -95,6 +95,16 @@ public class MockDraftDriver {
 				nextPlayer.indexOf(" ")),nextPlayer.substring(nextPlayer.indexOf(" ")+1), Double.valueOf(nextPlayerStats.get(1).toString()), 
 				getADP(desiredNumTeams,desiredNumTeams+Double.valueOf(nextPlayerStats.get(2).toString()))));
 			}
+			else if(nextPlayerPos.equals("K")) {
+				allPlayerModels.add(new KickerPlayerModel(nextPlayer.substring(0, 
+				nextPlayer.indexOf(" ")),nextPlayer.substring(nextPlayer.indexOf(" ")+1), Double.valueOf(nextPlayerStats.get(1).toString()), 
+				getADP(desiredNumTeams,desiredNumTeams+Double.valueOf(nextPlayerStats.get(2).toString()))));
+			}
+			else if (nextPlayerPos.equals("DEF")) {
+				allPlayerModels.add(new DefensePlayerModel(nextPlayer.substring(0, 
+				nextPlayer.indexOf(" ")),nextPlayer.substring(nextPlayer.indexOf(" ")+1), Double.valueOf(nextPlayerStats.get(1).toString()), 
+				getADP(desiredNumTeams,desiredNumTeams+Double.valueOf(nextPlayerStats.get(2).toString()))));
+			}
 		}
 		allPlayerModels.sort(null);
 

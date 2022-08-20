@@ -22,3 +22,5 @@ Javonte Williams RB 000 21
 Mark Andrews TE 000 22
 Josh Allen QB 000 23
 Leonard Fournette RB 000 24
+Bryan Lorden K 097 25
+Christopher Lorden DEF 107 26

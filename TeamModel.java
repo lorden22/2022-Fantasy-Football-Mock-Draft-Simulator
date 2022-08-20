@@ -19,11 +19,15 @@ public class TeamModel implements Comparable<TeamModel>{
 		ArrayList<PlayerModel> runningBackList = new ArrayList<PlayerModel>();
 		ArrayList<PlayerModel> tightEndList = new ArrayList<PlayerModel>();
 		ArrayList<PlayerModel> wideReceiverList = new ArrayList<PlayerModel>();
+		ArrayList<PlayerModel> kickerList = new ArrayList<PlayerModel>();
+		ArrayList<PlayerModel> defenseList = new ArrayList<PlayerModel>();
 		
 		this.thisTeamPlayers.put(QuarterBackPlayerModel.POSITIONSHORTHANDLE, quarterBackList);
 		this.thisTeamPlayers.put(RunningBackPlayerModel.POSITIONSHORTHANDLE, runningBackList);
 		this.thisTeamPlayers.put(TightEndPlayerModel.POSITIONSHORTHANDLE, tightEndList);
 		this.thisTeamPlayers.put(WideReceiverPlayerModel.POSITIONSHORTHANDLE, wideReceiverList);
+		this.thisTeamPlayers.put(KickerPlayerModel.POSITIONSHORTHANDLE,kickerList);
+		this.thisTeamPlayers.put(DefensePlayerModel.POSITIONSHORTHANDLE,defenseList);
 	}
 
 	public void addPlayer(String playerClassString, PlayerModel playerToAdd) {
@@ -57,15 +61,56 @@ public class TeamModel implements Comparable<TeamModel>{
 		else return 0;
 	}
 
+	private PlayerModel getStartersForPosition(ArrayList<PlayerModel> playersAtThisPosition) {
+		if(playersAtThisPosition.isEmpty()) {
+			return null;
+		}
+		else {
+			PlayerModel starter = playersAtThisPosition.get(0);
+			for(PlayerModel nextPlayer : playersAtThisPosition) {
+				if(starter.getPredictedScore() / 17.0 < nextPlayer.getPredictedScore() /17) {
+					starter = nextPlayer;
+				}
+			}
+			return starter;
+		}
+	}
+
+	private String getSpecialPositionStarters(TreeMap<String,ArrayList<PlayerModel>> copyOfThisTeamPlayers) {
+		String kickerStarterString = KickerPlayerModel.POSITIONSHORTHANDLE + " - None";
+		String defenseStarterString = DefensePlayerModel.POSITIONSHORTHANDLE + " - None";
+		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
+			if( (currPosition.equals(KickerPlayerModel.POSITIONSHORTHANDLE) || 
+				currPosition.equals(DefensePlayerModel.POSITIONSHORTHANDLE)) &&
+				!copyOfThisTeamPlayers.get(currPosition).isEmpty()) {
+					PlayerModel currSpecialStarter = this.getStartersForPosition(copyOfThisTeamPlayers.get(currPosition));
+					if(currPosition.equals(DefensePlayerModel.POSITIONSHORTHANDLE)) {
+						defenseStarterString = currPosition + " - " + currSpecialStarter;
+					}
+					else {
+						kickerStarterString = currPosition + " - " + currSpecialStarter;
+					}
+					copyOfThisTeamPlayers.get(currPosition).remove(currSpecialStarter);
+				}
+			} 
+			return kickerStarterString + "\n" + defenseStarterString;
+		}
+
 	public String toString() {
 		TreeMap<String,ArrayList<PlayerModel>> copyOfThisTeamPlayers = 
 			new TreeMap<String,ArrayList<PlayerModel>>(this.thisTeamPlayers);
+		
 		
 		PlayerModel flexPlayer = null;	
 		
 		String returnString = "\n       " + this.teamName + "      " + "\n---------------------------------------\n";
 		
 		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
+
+			if(currPosition.equals(KickerPlayerModel.POSITIONSHORTHANDLE) ||
+			currPosition.equals(DefensePlayerModel.POSITIONSHORTHANDLE)) {
+				continue;
+			}
 
 			int amountOfStarters = 1;
 			
@@ -90,6 +135,7 @@ public class TeamModel implements Comparable<TeamModel>{
 			currPosition.equals(WideReceiverPlayerModel.POSITIONSHORTHANDLE) ||
 			currPosition.equals(TightEndPlayerModel.POSITIONSHORTHANDLE)) {
 					
+				
 				PlayerModel firstPlayerOnBench = this.getStartersForPosition(playersAtThisPosition);
 				if(firstPlayerOnBench != null) {
 					if(flexPlayer == null) {
@@ -111,6 +157,8 @@ public class TeamModel implements Comparable<TeamModel>{
 			copyOfThisTeamPlayers.get(flexPlayer.getPosition()).remove(flexPlayer);
 		}
 
+		returnString += this.getSpecialPositionStarters(copyOfThisTeamPlayers) + "\n\n";
+
 		for(String currPosition : copyOfThisTeamPlayers.keySet()) {
 			for(PlayerModel nextPositionBenchPlayer : copyOfThisTeamPlayers.get(currPosition)) {
 				returnString += "Bench/" + currPosition + " - " + nextPositionBenchPlayer + "\n";
@@ -119,18 +167,4 @@ public class TeamModel implements Comparable<TeamModel>{
 		return returnString;
 	}
 	
-	private PlayerModel getStartersForPosition(ArrayList<PlayerModel> playersAtThisPosition) {
-		if(playersAtThisPosition.isEmpty()) {
-			return null;
-		}
-		else {
-			PlayerModel starter = playersAtThisPosition.get(0);
-			for(PlayerModel nextPlayer : playersAtThisPosition) {
-				if(starter.getPredictedScore() / 17.0 < nextPlayer.getPredictedScore() /17) {
-					starter = nextPlayer;
-				}
-			}
-			return starter;
-		}
-	}
 }
