@@ -13,7 +13,7 @@ import time
 print("Imports Done")
 
 def setUp():
-    PATH = "C:\\Users\\Bryan's PC\\Coding\\chromedriver.exe"
+    PATH = ""
     options = Options()
     options.headless = False
     driver = webdriver.Chrome(PATH,options=options)
