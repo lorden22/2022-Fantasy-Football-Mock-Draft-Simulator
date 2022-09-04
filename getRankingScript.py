@@ -27,7 +27,7 @@ def getCurrPlayerPPRProjections(webdriver,currPlayerProfileLink,currPlayerPositi
 
     def getDefensePoints(webdriver, wantedTeamName):
         webdriver.get('https://www.fantasypros.com/nfl/projections/dst.php?week=draft')
-        time.sleep(2)
+        time.sleep(0.25)
         defenseTable = webdriver.find_element(By.CSS_SELECTOR,'#data').find_element(By.TAG_NAME,'tbody').find_elements(By.TAG_NAME,'tr')
         for currTeamRow in defenseTable:
             currTeamName = currTeamRow.find_elements(By.TAG_NAME,'td')[0].find_element(By.TAG_NAME,'a').text
