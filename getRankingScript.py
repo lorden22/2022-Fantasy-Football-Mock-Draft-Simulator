@@ -13,7 +13,7 @@ import time
 print("Imports Done")
 
 def setUp():
-    PATH = "C:\\Users\\Bryan's PC\\Coding\\chromedriver.exe"
+    PATH = ""
     options = Options()
     options.headless = False
     driver = webdriver.Chrome(PATH,options=options)
@@ -21,7 +21,7 @@ def setUp():
 
 def getRankingsPage(webdriver):
     webdriver.get("https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php")
-    time.sleep(3)
+    time.sleep(0.25)
 
 def getCurrPlayerPPRProjections(webdriver,currPlayerProfileLink,currPlayerPosition,currPlayerName):
 
@@ -41,14 +41,14 @@ def getCurrPlayerPPRProjections(webdriver,currPlayerProfileLink,currPlayerPositi
 
     def getToCurrPlayerPPRProjections(webdriver,currPlayerProjectionsPage,currPlayerPosition):
         webdriver.get(currPlayerProjectionsPage)
-        time.sleep(2)
+        time.sleep(0.25)
 
         if currPlayerPosition == "WR" or currPlayerPosition == "TE" or currPlayerPosition == "RB":
             scoringFormatSelecter = webdriver.find_element(By.CSS_SELECTOR,'#main-container > div > div.main-content > div > div:nth-child(4) > div.head-row.clearfix > div > div > select')
             scoringFormatSelecterOptionsList = scoringFormatSelecter.find_elements(By.TAG_NAME,'option')
             PPRSelecterOption = findPPROptionFromSelecter(webdriver,scoringFormatSelecterOptionsList)
             PPRSelecterOption.click()
-            time.sleep(2)
+            time.sleep(0.25)
     
     def findColforPointsInProjectionsTable(webdriver):
         projectionTableOfContentsCol = webdriver.find_element(By.CSS_SELECTOR,'#main-container > div > div.main-content > div > div:nth-child(3) > div.body-row > div > table > thead > tr').find_elements(By.TAG_NAME,'th')
@@ -66,7 +66,7 @@ def getCurrPlayerPPRProjections(webdriver,currPlayerProfileLink,currPlayerPositi
                 colForProjectionsInMainPlayerMenu = 7
 
             webdriver.get(currPlayerProfileLink)
-            time.sleep(2)
+            time.sleep(0.25)
 
             PlayerProfileMenuElementList = webdriver.find_element(By.CSS_SELECTOR,'#main-container > div > div.main-content > div > div.pills-wrap.feature-bg.feature-stretch').find_element(By.TAG_NAME,"ul").find_elements(By.TAG_NAME,"li")
             ProjectionsColElement = PlayerProfileMenuElementList[colForProjectionsInMainPlayerMenu]
@@ -94,7 +94,6 @@ def getPlayerRowsInTable(webdriver,EntirePlayerTable):
 
 def getPPRProjections(webdriver,allPlayersStatsDict):
     for key in allPlayersStatsDict:
-        if int(key) > 178:
             currRank = key
             currPlayerDict = allPlayersStatsDict[currRank]
             currPlayerProfileLink = currPlayerDict['Profile Link']
