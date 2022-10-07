@@ -40,7 +40,11 @@ public class TeamModel implements Comparable<TeamModel>{
 	}
 
 	public int getTeamSize() {
-		return this.thisTeamPlayers.size();
+		int teamSize = 0;
+		for(String currPostion : this.thisTeamPlayers.keySet()) {
+			teamSize += this.thisTeamPlayers.get(currPostion).size();
+		}
+		return teamSize;
 	}
 
 	private int getTeamNumber() {
