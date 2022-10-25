@@ -13,6 +13,7 @@ import time
 print("Imports Done")
 
 def setUp():
+    #Update Chrome webdriver path below
     PATH = ""
     options = Options()
     options.headless = False
